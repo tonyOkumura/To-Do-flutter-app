@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   void _removeToDoAtIndex(int index) {
     setState(() {
-      _todoDataSource.getAllToDos().removeAt(index);
+      _todoDataSource.removeTodoItem(index);
     });
   }
 
@@ -169,9 +169,7 @@ class _HomePageState extends State<HomePage> {
 
   void _addToDoItem(String newText) {
     setState(() {
-      _todoDataSource
-          .getAllToDos()
-          .add(ToDoModel(text: newText, isDone: false));
+      _todoDataSource.addNewTodoItem(newText);
     });
   }
 }
