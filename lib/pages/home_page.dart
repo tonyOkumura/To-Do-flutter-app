@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/components/todo_title.dart';
+import 'package:todo_app/data/todoDatasource.dart';
 import 'package:todo_app/models/todoModel.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,51 +13,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _todoDataSource = TodoDataSource();
+  // final List<ToDoModel> _allToDos = [];
   final TextEditingController _toDoTextController = TextEditingController();
-  final List<ToDoModel> _allToDos = [
-    ToDoModel(text: 'Buy milk', isDone: false),
-    ToDoModel(text: 'Buy bread', isDone: false),
-    ToDoModel(text: 'Buy eggs', isDone: false),
-    ToDoModel(text: 'Wash the car', isDone: false),
-    ToDoModel(text: 'Walk the dog', isDone: false),
-    ToDoModel(text: 'Water the plants', isDone: false),
-    ToDoModel(text: 'Pay the bills', isDone: false),
-    ToDoModel(text: 'Take out the trash', isDone: false),
-    ToDoModel(text: 'Vacuum the house', isDone: false),
-    ToDoModel(text: 'Do the laundry', isDone: false),
-    ToDoModel(text: 'Clean the bathroom', isDone: false),
-    ToDoModel(text: 'Sweep the floors', isDone: false),
-    ToDoModel(text: 'Organize the closet', isDone: false),
-    ToDoModel(text: 'Call mom', isDone: false),
-    ToDoModel(text: 'Exercise', isDone: false),
-    ToDoModel(text: 'Read a book', isDone: false),
-    ToDoModel(text: 'Write a blog post', isDone: false),
-    ToDoModel(text: 'Plan a vacation', isDone: false),
-    ToDoModel(text: 'Learn a new skill', isDone: false),
-    ToDoModel(text: 'Cook a new recipe', isDone: false),
-    ToDoModel(text: 'Go for a run', isDone: false),
-    ToDoModel(text: 'Take a nap', isDone: false),
-    ToDoModel(text: 'Watch a movie', isDone: false),
-    ToDoModel(text: 'Listen to music', isDone: false),
-    ToDoModel(text: 'Write a letter', isDone: false),
-    ToDoModel(text: 'Practice a musical instrument', isDone: false),
-    ToDoModel(text: 'Do a puzzle', isDone: false),
-    ToDoModel(text: 'Play a board game', isDone: false),
-    ToDoModel(text: 'Organize photos', isDone: false),
-    ToDoModel(text: 'Go for a bike ride', isDone: false),
-    ToDoModel(text: 'Take a yoga class', isDone: false),
-    ToDoModel(text: 'Paint a picture', isDone: false),
-    ToDoModel(text: 'Plant a garden', isDone: false),
-    ToDoModel(text: 'Write a poem', isDone: false),
-    ToDoModel(text: 'Learn a new language', isDone: false),
-    ToDoModel(text: 'Go on a hike', isDone: false),
-    ToDoModel(text: 'Make a homemade gift', isDone: false),
-    ToDoModel(text: 'Practice meditation', isDone: false),
-    ToDoModel(text: 'Try a new restaurant', isDone: false),
-    ToDoModel(text: 'Go camping', isDone: false),
-    ToDoModel(text: 'Attend a concert', isDone: false),
-    ToDoModel(text: 'Visit a museum', isDone: false),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +38,13 @@ class _HomePageState extends State<HomePage> {
     return Expanded(
       flex: 9,
       child: ListView.builder(
-        itemCount: _allToDos.length,
+        itemCount: _todoDataSource.getAllToDos().length,
         itemBuilder: (context, index) {
           return ToDoTitle(
-            todo: _allToDos[_allToDos.length - index - 1],
-            onDoubleTap: () => _removeToDoAtIndex(_allToDos.length - index - 1),
+            todo: _todoDataSource.getAllToDos()[
+                _todoDataSource.getAllToDos().length - index - 1],
+            onDoubleTap: () => _removeToDoAtIndex(
+                _todoDataSource.getAllToDos().length - index - 1),
           );
         },
       ),
@@ -92,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   void _removeToDoAtIndex(int index) {
     setState(() {
-      _allToDos.removeAt(index);
+      _todoDataSource.getAllToDos().removeAt(index);
     });
   }
 
@@ -113,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     fontSize: 30, decoration: TextDecoration.underline)),
             Text(
-              "total number ${_allToDos.length}",
+              "total number ${_todoDataSource.getAllToDos().length}",
             ),
           ],
         ),
@@ -208,7 +169,9 @@ class _HomePageState extends State<HomePage> {
 
   void _addToDoItem(String newText) {
     setState(() {
-      _allToDos.add(ToDoModel(text: newText, isDone: false));
+      _todoDataSource
+          .getAllToDos()
+          .add(ToDoModel(text: newText, isDone: false));
     });
   }
 }

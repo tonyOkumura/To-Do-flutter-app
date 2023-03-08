@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/models/todoModel.dart';
 
 class ToDoTitle extends StatefulWidget {
-  ToDoModel todo;
-  Function()? onDoubleTap;
+  final ToDoModel todo;
+  final Function()? onDoubleTap;
 
   ToDoTitle({
     super.key,
